@@ -50,7 +50,6 @@ class BookCtrl {
 
                         jsonBook.reviews = reviews;
                         res.locals.book = jsonBook;
-                        console.log(reviews);
                         res.render("book-detail");
                     })
                     .catch(function () {

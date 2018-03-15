@@ -4,6 +4,7 @@ const hbs = require('express-hbs');
 const mongoose = require('mongoose');
 const config = require('./utilities/config');
 const bodyParser = require('body-parser');
+const middlewares = require('./utilities/middlewares');
 
 const app = express();
 
@@ -38,25 +39,8 @@ const userRouter = require('./routes/user.router');
 app.use('/', defaultRouter);
 app.use('/users', userRouter);
 
-//isAuthenticated?
-
-function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) next();
-    else res.redirect("/users/login");
-}
-
-function attachAuthInfo(req, res, next) {
-    res.locals.isLoggedin = req.isAuthenticated();
-    next();
-}
-
-function noCache(req, res, next) {
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    next();
-}
-
-// app.use(isAuthenticated);
-// app.use(attachAuthInfo);
-// app.use(noCache);
+app.use(middlewares.isAuthenticated);
+app.use(middlewares.attachAuthInfo);
+app.use(middlewares.noCache);
 
 app.use('/books', bookRouter);
