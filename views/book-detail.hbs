@@ -8,3 +8,22 @@
     </div>
     <div class="panel-footer">{{book.lastUpdated}}</div>
 </div>
+<div class="row">
+    <div class="col-md-5">
+        {{#if book.reviews}}
+        <h1>Reviews</h1>
+        {{else}}
+        <h3>Be the first one to review</h3>
+        {{/if}} 
+        
+        {{#each book.reviews}}
+        <div>
+            <h3>{{name}} {{rating}} *</h3>
+            <b>{{subject}}</b>
+            <p>{{message}}</p>
+            <div>{{lastUpdated}}</div>
+            <hr/>
+        </div>
+        {{/each}}
+    </div>
+</div>

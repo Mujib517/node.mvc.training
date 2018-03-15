@@ -55,8 +55,8 @@ function noCache(req, res, next) {
     next();
 }
 
-app.use(isAuthenticated);
-app.use(attachAuthInfo);
-app.use(noCache);
+// app.use(isAuthenticated);
+// app.use(attachAuthInfo);
+// app.use(noCache);
 
 app.use('/books', bookRouter);

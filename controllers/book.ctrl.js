@@ -1,4 +1,5 @@
 const Book = require('../models/book.model');
+const Review = require('../models/review.model');
 
 class BookCtrl {
     get(req, res) {
@@ -40,8 +41,25 @@ class BookCtrl {
 
         Book.findById(id).exec()
             .then(function (book) {
-                res.locals.book = book;
-                res.render("book-detail");
+
+                Review.find({ bookId: id })
+                    .exec()
+                    .then(function (reviews) {
+
+                        var jsonBook = book.toJSON();
+
+                        jsonBook.reviews = reviews;
+                        res.locals.book = jsonBook;
+                        console.log(reviews);
+                        res.render("book-detail");
+                    })
+                    .catch(function () {
+                        console.log(err);
+                        res.render("error");
+                    });
+
+
+
             })
             .catch(function (err) {
                 console.log(err);
@@ -58,7 +76,7 @@ class BookCtrl {
                 res.redirect("/books");
             })
             .catch(function (err) {
-                res.render("error",{error:err});
+                res.render("error", { error: err });
             });
     }
 }
