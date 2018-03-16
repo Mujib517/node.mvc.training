@@ -6,7 +6,7 @@ var userCtrl = require('../controllers/user.ctrl');
 
 function ConfigureAuth(app) {
 
-    app.use(session({ secret: config.password }));
+    app.use(session({ secret: config.password, resave: false, saveUninitialized: false }));
     app.use(passport.initialize());
     app.use(passport.session());
 

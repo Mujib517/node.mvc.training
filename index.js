@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const config = require('./utilities/config');
 const bodyParser = require('body-parser');
 const middlewares = require('./utilities/middlewares');
+const jade = require('jade');
 
 const app = express();
 
@@ -21,11 +22,15 @@ mongoose.connect(config.conStr, () => console.log("Connected"));
 app.use(express.static('lib'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set('view engine', 'hbs');
-app.engine('hbs', hbs.express4({
-    defaultLayout: __dirname + "/views/index.hbs",
-    partialsDir: __dirname + "/views/partials/"
-}));
+
+app.set('view engine', 'jade');
+app.set('views', __dirname + "/public");
+
+// app.set('view engine', 'hbs');
+// app.engine('hbs', hbs.express4({
+//     defaultLayout: __dirname + "/views/index.hbs",
+//     partialsDir: __dirname + "/views/partials/"
+// }));
 
 const configureAuth = require('./utilities/auth');
 
@@ -39,8 +44,8 @@ const userRouter = require('./routes/user.router');
 app.use('/', defaultRouter);
 app.use('/users', userRouter);
 
-app.use(middlewares.isAuthenticated);
-app.use(middlewares.attachAuthInfo);
-app.use(middlewares.noCache);
+// app.use(middlewares.isAuthenticated);
+// app.use(middlewares.attachAuthInfo);
+// app.use(middlewares.noCache);
 
 app.use('/books', bookRouter);

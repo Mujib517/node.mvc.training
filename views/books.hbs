@@ -1,21 +1,25 @@
 <h1>Books Page</h1>
 
+
 <a href="/books/new" class="btn btn-danger">New Book</a>
 
-<div class="col-md-7">
-    {{#each books}}
-    <div class="well">
-        <a href="/books/{{_id}}">
-            <h3>{{name}}</h3>
-        </a>
-        <h4>{{author}}</h4>
-        <div>$ {{price}}</div>
-        <div> {{lastUpdated}}</div>
-        <div>
-            <form method="POST" action="/books/delete/{{_id}}">
-                <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-            </form>
+
+<div class="row">
+    <div class="col-md-7">
+        {{#each books}}
+        <div class="well">
+            <a href="/books/{{_id}}">
+                <h3>{{name}}</h3>
+            </a>
+            <h4>{{author}}</h4>
+            <div>$ {{price}}</div>
+            <div> {{lastUpdated}}</div>
+            <div>
+                <form method="POST" action="/books/delete/{{_id}}">
+                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                </form>
+            </div>
         </div>
+        {{/each}}
     </div>
-    {{/each}}
 </div>

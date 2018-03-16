@@ -1,0 +1,8 @@
+extend index
+block content
+    .col-md-5
+        each book in books
+            .well
+                h3 Name #{book.name} 
+                h4= book.author
+                div= book.lastUpdated
